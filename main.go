@@ -2,7 +2,7 @@ package main
 
 import (
 	"github.com/hashicorp/terraform/plugin"
-	"github.com/odedniv/terraform-provider-sql/sql"
+	"github.com/FindHotel/terraform-provider-sql/sql"
 )
 
 func main() {

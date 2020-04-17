@@ -1,4 +1,4 @@
-module github.com/odedniv/terraform-provider-sql
+module github.com/FindHotel/terraform-provider-sql
 
 require (
 	github.com/GoogleCloudPlatform/cloudsql-proxy v0.0.0-20190129172621-c8b1d7a94ddf
