@@ -1,5 +1,7 @@
 module github.com/FindHotel/terraform-provider-sql
 
+go 1.14
+
 require (
 	github.com/GoogleCloudPlatform/cloudsql-proxy v0.0.0-20190129172621-c8b1d7a94ddf
 	github.com/apparentlymart/go-cidr v1.0.0 // indirect

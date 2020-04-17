@@ -13,15 +13,17 @@ import (
 	_ "github.com/GoogleCloudPlatform/cloudsql-proxy/proxy/dialers/postgres"
 	_ "github.com/go-sql-driver/mysql"
 	_ "github.com/lib/pq"
+	_ "github.com/snowflakedb/gosnowflake"
 )
 
 var dialects = map[string]string{
+	"snowflake":        "snowflake",
 	"mysql":            "mysql",
 	"postgres":         "postgres",
 	"cloudsql":         "mysql",
 	"cloudsqlpostgres": "postgres",
 }
-var availableDialects = []string{"mysql", "postgres", "cloudsql", "cloudsqlpostgres"}
+var availableDialects = []string{"snowflake", "mysql", "postgres", "cloudsql", "cloudsqlpostgres"}
 
 func resourceSQLSchema() *schema.Resource {
 	return &schema.Resource{
