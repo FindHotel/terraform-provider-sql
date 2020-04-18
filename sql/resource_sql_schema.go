@@ -90,7 +90,7 @@ func idFromDataSource(dialect, datasource string) (string, error) {
 			return "", err
 		}
 
-		return fmt.Sprintf("%s://%s|%s|%s|%s", "snowflake", cfg.Host, cfg.Warehouse, cfg.Database, cfg.Schema), nil
+		return fmt.Sprintf("%s://%s|%s|%s", "snowflake", cfg.Host, cfg.Database, cfg.Schema), nil
 	default:
 		return idPattern.ReplaceAllString(datasource, "$1$2"), nil
 	}
