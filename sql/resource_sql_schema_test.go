@@ -15,11 +15,21 @@ import (
 )
 
 func TestIdFromDataSource(t *testing.T) {
-	assert.Equal(t, "dialect://@host", idFromDataSource("dialect://username:password@host?parameters"))
-	assert.Equal(t, "dialect://@host", idFromDataSource("dialect://username:password@host"))
-	assert.Equal(t, "dialect://@host", idFromDataSource("dialect://username:@host"))
-	assert.Equal(t, "dialect://@host", idFromDataSource("dialect://@host"))
-	assert.Equal(t, "not connection string", idFromDataSource("not connection string"))
+	if result, err := idFromDataSource("dialict", "dialect://username:password@host?parameters"); assert.NoError(t, err) {
+		assert.Equal(t, "dialect://@host", result)
+	}
+	if result, err := idFromDataSource("dialict", "dialect://username:password@host"); assert.NoError(t, err) {
+		assert.Equal(t, "dialect://@host", result)
+	}
+	if result, err := idFromDataSource("dialict", "dialect://username:@host"); assert.NoError(t, err) {
+		assert.Equal(t, "dialect://@host", result)
+	}
+	if result, err := idFromDataSource("dialict", "dialect://@host"); assert.NoError(t, err) {
+		assert.Equal(t, "dialect://@host", result)
+	}
+	if result, err := idFromDataSource("dialect", "not connection string"); assert.NoError(t, err) {
+		assert.Equal(t, "not connection string", result)
+	}
 }
 
 func TestAccSqlSchema_postgres(t *testing.T) {

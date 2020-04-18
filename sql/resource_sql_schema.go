@@ -6,6 +6,7 @@ import (
 	"regexp"
 	"strings"
 
+	"github.com/FindHotel/terraform-provider-sql/sql/dialect"
 	"github.com/hashicorp/terraform/helper/schema"
 	migrate "github.com/rubenv/sql-migrate"
 
@@ -13,7 +14,7 @@ import (
 	_ "github.com/GoogleCloudPlatform/cloudsql-proxy/proxy/dialers/postgres"
 	_ "github.com/go-sql-driver/mysql"
 	_ "github.com/lib/pq"
-	_ "github.com/snowflakedb/gosnowflake"
+	sf "github.com/snowflakedb/gosnowflake"
 )
 
 var dialects = map[string]string{
@@ -24,6 +25,10 @@ var dialects = map[string]string{
 	"cloudsqlpostgres": "postgres",
 }
 var availableDialects = []string{"snowflake", "mysql", "postgres", "cloudsql", "cloudsqlpostgres"}
+
+func init() {
+	migrate.MigrationDialects["snowflake"] = dialect.SnowflakeDialect{}
+}
 
 func resourceSQLSchema() *schema.Resource {
 	return &schema.Resource{
@@ -77,8 +82,18 @@ func resourceSQLSchema() *schema.Resource {
 var idPattern = regexp.MustCompile(`^(.*?://).*(@.*?)(\?.*)?$`)
 
 // Removes credentials and parameters from datasource: "dialect://username:password@host?parameteres" -> "dialect://@host"
-func idFromDataSource(datasource string) string {
-	return idPattern.ReplaceAllString(datasource, "$1$2")
+func idFromDataSource(dialect, datasource string) (string, error) {
+	switch dialect {
+	case "snowflake":
+		cfg, err := sf.ParseDSN(datasource)
+		if err != nil {
+			return "", err
+		}
+
+		return fmt.Sprintf("%s://%s|%s|%s|%s", "snowflake", cfg.Host, cfg.Warehouse, cfg.Database, cfg.Schema), nil
+	default:
+		return idPattern.ReplaceAllString(datasource, "$1$2"), nil
+	}
 }
 
 func resourceSQLSchemaCreate(d *schema.ResourceData, m interface{}) (err error) {
@@ -91,7 +106,11 @@ func resourceSQLSchemaCreate(d *schema.ResourceData, m interface{}) (err error) 
 	if err != nil {
 		return
 	}
-	d.SetId(idFromDataSource(d.Get("datasource").(string)))
+	id, err := idFromDataSource(getDialect(d), d.Get("datasource").(string))
+	if err != nil {
+		return err
+	}
+	d.SetId(id)
 	return resourceSQLSchemaRead(d, m)
 }
 
