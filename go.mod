@@ -3,11 +3,13 @@ module github.com/FindHotel/terraform-provider-sql
 go 1.14
 
 require (
+	git.apache.org/thrift.git v0.0.0-20180902110319-2566ecd5d999 // indirect
 	github.com/GoogleCloudPlatform/cloudsql-proxy v0.0.0-20190129172621-c8b1d7a94ddf
 	github.com/apparentlymart/go-cidr v1.0.0 // indirect
 	github.com/blang/semver v3.5.1+incompatible // indirect
 	github.com/go-sql-driver/mysql v1.4.1
 	github.com/gobuffalo/packr v1.22.0 // indirect
+	github.com/golang/lint v0.0.0-20180702182130-06c8688daad7 // indirect
 	github.com/google/uuid v1.1.1 // indirect
 	github.com/hashicorp/go-getter v1.1.0 // indirect
 	github.com/hashicorp/go-hclog v0.7.0 // indirect
@@ -19,8 +21,7 @@ require (
 	github.com/hashicorp/terraform v0.11.11
 	github.com/jmespath/go-jmespath v0.0.0-20180206201540-c2b33e8439af // indirect
 	github.com/labstack/gommon v0.3.0 // indirect
-	github.com/lib/pq v1.0.0
-	github.com/mattn/go-sqlite3 v1.10.0 // indirect
+	github.com/lib/pq v1.2.0
 	github.com/mitchellh/cli v1.0.0 // indirect
 	github.com/mitchellh/copystructure v1.0.0 // indirect
 	github.com/mitchellh/go-homedir v1.1.0 // indirect
@@ -31,11 +32,7 @@ require (
 	github.com/stretchr/testify v1.4.0
 	github.com/zclconf/go-cty v0.0.0-20190212192503-19dda139b164 // indirect
 	github.com/ziutek/mymysql v1.5.4 // indirect
-	golang.org/x/crypto v0.0.0-20190219172222-a4c6cb3142f2 // indirect
-	golang.org/x/net v0.0.0-20190213061140-3a22650c66bd // indirect
-	golang.org/x/text v0.3.1-0.20180807135948-17ff2d5776d2 // indirect
-	google.golang.org/api v0.1.0 // indirect
-	google.golang.org/genproto v0.0.0-20190219182410-082222b4a5c5 // indirect
-	google.golang.org/grpc v1.18.0 // indirect
 	gopkg.in/gorp.v1 v1.7.2
 )
+
+replace github.com/rubenv/sql-migrate => github.com/zzet/sql-migrate v0.0.0-20200423142533-dd1b57159ac1

@@ -69,7 +69,7 @@ func resourceSQLSchema() *schema.Resource {
 				Description: "Name of the table to use to store applied migrations.",
 			},
 			"migrations": &schema.Schema{
-				Type:     schema.TypeList,
+				Type:     schema.TypeSet,
 				Computed: true,
 				Elem: &schema.Schema{
 					Type: schema.TypeString,
