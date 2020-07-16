@@ -109,10 +109,10 @@ func (d SnowflakeDialect) QuoteField(f string) string {
 
 func (d SnowflakeDialect) QuotedTableForQuery(schema string, table string) string {
 	if strings.TrimSpace(schema) == "" {
-		return d.QuoteField(table)
+		return table
 	}
 
-	return schema + "." + d.QuoteField(table)
+	return schema + "." + table
 }
 
 func (d SnowflakeDialect) IfSchemaNotExists(command, schema string) string {
