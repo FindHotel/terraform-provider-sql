@@ -9,12 +9,24 @@ it is recommended to go read how it works before using this provider.
 
 ### Installation
 
+
 Build the provider and put it in Terraform's third-party providers directory in `~/.terraform.d/plugins`:
+
+#### Terraform <0.12
 
 ```bash
 go get github.com/FindHotel/terraform-provider-sql
 mkdir -p ~/.terraform.d/plugins
 go build -o ~/.terraform.d/plugins/terraform-provider-sql github.com/FindHotel/terraform-provider-sql
+```
+
+#### Terraform >0.13
+
+
+```bash
+go get github.com/FindHotel/terraform-provider-sql
+mkdir -p ~/.terraform.d/plugins
+go build -o ~/.terraform.d/plugins/<your-module-url-specified-in-tf-file>/<version-specified-in-tf-file>/linux_amd64/terraform-provider-sql github.com/FindHotel/terraform-provider-sql
 ```
 
 I recommend using [Go modules](https://github.com/golang/go/wiki/Modules) to ensure
