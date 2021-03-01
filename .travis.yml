@@ -1,0 +1,34 @@
+os: linux
+dist: bionic
+
+language: go
+
+go:
+  - "1.16"
+
+env:
+  global:
+    secure: JKwbK5feW2YFQQZC8QVgu8ACKTI9O1rOF4feytaqRmEWWaHyvLIwr6QQO2jENSBPcVnAEhDNbVjBxBNqrinpQrdU2JwtQdwhfr3ZQETy1fEvn1QfsrdJ/9bqMrVhfGrNTgy85B6Ihq78xBig47IsAP6FOWJg/sPEC13jBdKcIIWMJ0+TE2KHGu+e7cCn6BGNRiY2jOwIIOYFaGPPOJNWdyfEQkfthbvo3dcXINq6msqdUySCMtu+pT7pMo2Vb7Ml3KLnB78cmxlQoWIntFC+W85zwkHh0KG2W9z0DpOEmEDpdf2fbRkSeqVNgWfljarhFewhfEGW07rvCsG9LFmGklz/F2wq1MB025SrqyRJAGWhjgoWpCXv1TscSECJxMukg+kvRu4KjUDCBU3xj4ypnVyjcLy8+lp74RAJgyAmxjzJOa5vQ5ir1jsBWHCRCaw+7WrJWDNnX7zDqF9GESDBwORJYWNUjtmKSlBASM6RCa+RgYBBhzvHF90pO07cGQYM4uRx6Ofz+Sh4RJDzZR2bWRvQr5waCSqVg2/kVi3+AJyo4FVSBpEC8WHI4LL6YbGiuFtC/KZ0iXVQXuzZG5zsRtq7tMd2SdRL1uFqVBH8vUq2i+mhFXb+XiNW2FWVaTJjTOwJ6oH8c3iqrOOCdUvFoPnrpPilBbOWnFeA0sUMdW4=
+
+cache:
+  directories:
+    - $GOPATH/pkg/mod
+
+install:
+  - make install
+
+script:
+  - make test
+  - make build
+
+before_deploy:
+  - make build-release
+
+deploy:
+  provider: releases
+  api_key: $GITHUB_TOKEN
+  file_glob: true
+  file: pkg/teraform-provider-sql_*.gz
+  skip_cleanup: true
+  on:
+    tags: true
