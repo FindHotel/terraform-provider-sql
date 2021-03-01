@@ -1,18 +1,12 @@
 os: linux
 dist: bionic
-
 language: go
-
 go:
   - "1.16"
 
-env:
-  global:
-    secure: JKwbK5feW2YFQQZC8QVgu8ACKTI9O1rOF4feytaqRmEWWaHyvLIwr6QQO2jENSBPcVnAEhDNbVjBxBNqrinpQrdU2JwtQdwhfr3ZQETy1fEvn1QfsrdJ/9bqMrVhfGrNTgy85B6Ihq78xBig47IsAP6FOWJg/sPEC13jBdKcIIWMJ0+TE2KHGu+e7cCn6BGNRiY2jOwIIOYFaGPPOJNWdyfEQkfthbvo3dcXINq6msqdUySCMtu+pT7pMo2Vb7Ml3KLnB78cmxlQoWIntFC+W85zwkHh0KG2W9z0DpOEmEDpdf2fbRkSeqVNgWfljarhFewhfEGW07rvCsG9LFmGklz/F2wq1MB025SrqyRJAGWhjgoWpCXv1TscSECJxMukg+kvRu4KjUDCBU3xj4ypnVyjcLy8+lp74RAJgyAmxjzJOa5vQ5ir1jsBWHCRCaw+7WrJWDNnX7zDqF9GESDBwORJYWNUjtmKSlBASM6RCa+RgYBBhzvHF90pO07cGQYM4uRx6Ofz+Sh4RJDzZR2bWRvQr5waCSqVg2/kVi3+AJyo4FVSBpEC8WHI4LL6YbGiuFtC/KZ0iXVQXuzZG5zsRtq7tMd2SdRL1uFqVBH8vUq2i+mhFXb+XiNW2FWVaTJjTOwJ6oH8c3iqrOOCdUvFoPnrpPilBbOWnFeA0sUMdW4=
-
 cache:
   directories:
-    - $GOPATH/pkg/mod
+    - "$GOPATH/pkg/mod"
 
 install:
   - make install
@@ -26,9 +20,10 @@ before_deploy:
 
 deploy:
   provider: releases
-  api_key: $GITHUB_TOKEN
+  api_key:
+    secure: Fn1MdiXY2fi5jPwQMjp9T/oxW6slwaM1OkHifYFjEN1EoX5J5IZcNB74YGEyJpxNtbX9Mr1yxMbmr2LEVluCaQ29CRiVvauTE5qsdKOTzlTc8QX4D+cJY5xFchfAbmLAZ287RkH8JaFLjjk0rV3ZmJ+WyWNXYhTuOloZmeXmwJyZ/ZiJ0f70K3x641JkL5mIOvpDbNG93tVu2rXsKd5LALNmbtr3wPNOr2zqmYc9pF9GpfznGQugIyvCDqmfuXZrNHixBQXs6yZYCTn3jsiZcbfeHRj4Bpoy5AHudDrsRf0hfB5NUEDyP2vgoOt4LpygrmvpAUxL5jI8sZc03BjnkDguth0NZyJXMYVmU02wYHYYswzLIfwYpGZWAiVdYBz9lnLKrif2PwMAzhb/QRsvDKM3Hpv6/cHofCYptFHL0pzrMENTFICgnWnzKYdedUnlX4a2I0VWFqpGZv9IXhjxWqzZk2+DSMHR2i1G1g4tdoeDT9UabNaTfwPdwedXoXq7yn11gk2CVUjiTe5+yeOQ2HlNYyK44cqB9kyRJQSVNkm3cSm+NrSAJc6/G9YRJTngrY5jKcxQ8m7ZByYl6Gh/xVj/Vf+DikI5ILLMaqwRz16oWEI2RBMaVa7Vve4Xq0S8t0DWeLtR2DUvFGJWSIiwzJhJqj+pZNgl4pYhyP1hifo=
   file_glob: true
-  file: pkg/teraform-provider-sql_*.gz
+  file: pkg/*
   skip_cleanup: true
   on:
     tags: true
