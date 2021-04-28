@@ -38,9 +38,11 @@ build-release:
 	@rm -rf $(PKGDIR)
 	@mkdir $(PKGDIR)
 	@for os in windows darwin linux ; do \
-    	make build-release-file OS=$$os ARCH=amd64 ; \
+		make build-release-file OS=$$os ARCH=amd64 ; \
     done
-	@make build-release-file OS=linux ARCH=arm64
+	@for os in darwin linux ; do \
+		make build-release-file OS=$$os ARCH=arm64 ; \
+    done
 
 test:
 	go test $(TEST) -v $(TESTARGS)
